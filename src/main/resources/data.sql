@@ -3,10 +3,10 @@ insert into issue (title, description, place, created_at, updated_at) values ('i
 insert into issue (title, description, place, created_at, updated_at) values ('issue3', 'description3', 'place3', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
 insert into issue (title, description, place, created_at, updated_at) values ('issue4', 'description4', 'place4', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
 
-insert into message (text, created_at, updated_at) values ('text1', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
-insert into message (text, created_at, updated_at) values ('text2', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
-insert into message (text, created_at, updated_at) values ('text3', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
-insert into message (text, created_at, updated_at) values ('text4', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
+insert into message (issue_id, text, created_at, updated_at) values (1, 'text1', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
+insert into message (issue_id, text, created_at, updated_at) values (1, 'text2', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
+insert into message (issue_id, text, created_at, updated_at) values (2, 'text3', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
+insert into message (issue_id, text, created_at, updated_at) values (3, 'text4', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
 
 insert into label (text, created_at, updated_at) values ('label1', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
 insert into label (text, created_at, updated_at) values ('label2', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());

@@ -41,5 +41,6 @@ public class Label {
     private LocalDateTime updated_at;
 
     @ManyToMany(mappedBy = "labels")
+    @JsonIgnore
     private List<Issue> issues;
 }
