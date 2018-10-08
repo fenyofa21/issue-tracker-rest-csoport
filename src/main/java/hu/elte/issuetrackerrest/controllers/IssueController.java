@@ -3,9 +3,11 @@ package hu.elte.issuetrackerrest.controllers;
 import hu.elte.issuetrackerrest.entities.Issue;
 import hu.elte.issuetrackerrest.entities.Label;
 import hu.elte.issuetrackerrest.entities.Message;
+import hu.elte.issuetrackerrest.entities.User;
 import hu.elte.issuetrackerrest.repositories.IssueRepository;
 import hu.elte.issuetrackerrest.repositories.LabelRepository;
 import hu.elte.issuetrackerrest.repositories.MessageRepository;
+import hu.elte.issuetrackerrest.security.AuthenticatedUser;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +35,19 @@ public class IssueController {
     @Autowired
     private LabelRepository labelRepository;
     
+    @Autowired
+    private AuthenticatedUser authenticatedUser;
+    
     @GetMapping("")
-    @Secured({ "ROLE_ADMIN" })
     public ResponseEntity<Iterable<Issue>> getAll() {
-        return ResponseEntity.ok(issueRepository.findAll());
-    }
+        User user = authenticatedUser.getUser();
+        User.Role role = user.getRole();
+        if (role.equals(User.Role.ROLE_ADMIN)) {
+            return ResponseEntity.ok(issueRepository.findAll());
+        } else {
+            return ResponseEntity.ok(issueRepository.findAllByUser(user));
+        }
+}
     
     @GetMapping("/{id}")
     public ResponseEntity<Issue> get(@PathVariable Integer id) {
@@ -51,6 +61,8 @@ public class IssueController {
     
     @PostMapping("")
     public ResponseEntity<Issue> post(@RequestBody Issue issue) {
+        User user = authenticatedUser.getUser();
+        issue.setUser(user);
         Issue savedIssue = issueRepository.save(issue);
         return ResponseEntity.ok(savedIssue);
     }
